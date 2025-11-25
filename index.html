@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta property="og:title" content="Controllable Layer Decomposition for Reversible Multi-Layer Image Generation"/>
+  <meta property="og:url" content=""/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <title>Controllable Layer Decomposition for Reversible Multi-Layer Image Generation</title>
+  
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+  <link rel="icon" href="static/figures/icon.png">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+
+<section class="publication-header">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Controllable Layer Decomposition for Reversible Multi-Layer Image Generation</h1>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+              <!-- ArXiv Link -->
+                <span class="link-block">
+                  <a href="http://arxiv.org/abs/2511.16249" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/monkek123King/CLD" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- Hugging Face Link -->
+                  <span class="link-block">
+                    <a href="https://huggingface.co/papers/2511.16249" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <img src="static/images/hf.svg" style="width: 70%;">
+                    </span>
+                    <span>Hugging Face</span>
+                  </a>
+                </span>
+
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="item">
+          
+        </p>
+        </div>
+        <p style="margin-bottom: 30px">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            This work presents Controllable Layer Decomposition (CLD), a method for achieving 
+            fine-grained and controllable multi-layer separation of raster images. In practical 
+            workflows, designers typically generate and edit each RGBA layer independently before 
+            compositing them into a final raster image. However, this process is irreversible: 
+            once composited, layer-level editing is no longer possible. Existing methods commonly 
+            rely on image matting and inpainting, but remain limited in controllability and segmentation
+            precision. To address these challenges, we propose two key modules: LayerDecompose-DiT (LD-DiT),
+            which decouples image elements into distinct layers and enables fine-grained control; 
+            and Multi-Layer Conditional Adapter (MLCA), which injects target image information into
+            multi-layer tokens to achieve precise conditional generation. To enable a comprehensive
+            evaluation, we build a new benchmark and introduce tailored evaluation metrics. Experimental
+            results show that CLD consistently outperforms existing methods in both decomposition quality
+            and controllability. Furthermore, the separated layers produced by CLD can be directly 
+            manipulated in commonly used design tools such as PowerPoint, highlighting its practical 
+            value and applicability in real-world creative workflows.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <div class="column is-centered has-text-centered">
+        <img src="static/figures/show.jpg" alt="cars peace" style="width: 80%; height: auto;"/>
+      </div>
+     
+  </div>
+</div>
+</div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">METHOD</h2>
+          <p>
+            Our framework utilizes a main backbone and a parallel control module for precise layer decomposition.
+            (a) The overall CLD architecture, showing the LayerDecompose-DiT (LD-DiT) backbone responsible for generating the multi-layer latent. 
+            (b) The detailed structure of the Multi-Layer Conditional Adapter (MLCA). MLCA additively fuses features from the conditional image with the LD-DiT's hidden states, then performs hierarchical cropping based on the input bounding boxes to create a multi-layer guidance token sequence.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section> 
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <div class="column is-centered has-text-centered">
+        <img src="static/figures/framework.jpg" alt="cars peace" style="width: 70%; height: auto;"/>
+      </div>
+     
+    
+  </div>
+</div>
+</div>
+</section>
+
+
+
+
+<!-- ===================== case_1 ===================== -->
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-3">Case 1</h2>
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <!-- ===================== Input Row ===================== -->
+      <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 10px;">
+        Input
+      </h2>
+
+      <div class="image-slider"
+          style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto; 
+                  margin-bottom: 30px; text-align: center;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Origin Image</p>
+          <img src="static/figures/case_1/origin.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Bounding box</p>
+          <img src="static/figures/case_1/bbox.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+
+      <!-- ===================== Results Row ===================== -->
+    <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 4px;">
+      Results
+    </h2>
+    <p style="font-size: 12px; text-align: center; color: #666; margin-bottom: 12px;">
+      Drag left or right to browse the results (From bottom to top).
+    </p>
+
+      <div class="image-slider"
+           style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Background</p>
+          <img src="static/figures/case_1/background_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <!-- Foreground layers -->
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 0</p>
+          <img src="static/figures/case_1/layer_0_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 1</p>
+          <img src="static/figures/case_1/layer_1_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 2</p>
+          <img src="static/figures/case_1/layer_2_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 3</p>
+          <img src="static/figures/case_1/layer_3_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 4</p>
+          <img src="static/figures/case_1/layer_4_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 5</p>
+          <img src="static/figures/case_1/layer_5_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 6</p>
+          <img src="static/figures/case_1/layer_6_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 7</p>
+          <img src="static/figures/case_1/layer_7_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 8</p>
+          <img src="static/figures/case_1/layer_8_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== case_2 ===================== -->
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-3">Case 2</h2>
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <!-- ===================== Input Row ===================== -->
+      <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 10px;">
+        Input
+      </h2>
+
+      <div class="image-slider"
+          style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto; 
+                  margin-bottom: 30px; text-align: center;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Origin Image</p>
+          <img src="static/figures/case_2/origin.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Bounding box</p>
+          <img src="static/figures/case_2/bbox.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+
+      <!-- ===================== Results Row ===================== -->
+    <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 4px;">
+      Results
+    </h2>
+    <p style="font-size: 12px; text-align: center; color: #666; margin-bottom: 12px;">
+      Drag left or right to browse the results (From bottom to top).
+    </p>
+
+      <div class="image-slider"
+           style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Background</p>
+          <img src="static/figures/case_2/background_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <!-- Foreground layers -->
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 0</p>
+          <img src="static/figures/case_2/layer_0_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 1</p>
+          <img src="static/figures/case_2/layer_1_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 2</p>
+          <img src="static/figures/case_2/layer_2_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 3</p>
+          <img src="static/figures/case_2/layer_3_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 4</p>
+          <img src="static/figures/case_2/layer_4_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 5</p>
+          <img src="static/figures/case_2/layer_5_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 6</p>
+          <img src="static/figures/case_2/layer_6_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 7</p>
+          <img src="static/figures/case_2/layer_7_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 8</p>
+          <img src="static/figures/case_2/layer_8_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 9</p>
+          <img src="static/figures/case_2/layer_9_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 10</p>
+          <img src="static/figures/case_2/layer_10_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 11</p>
+          <img src="static/figures/case_2/layer_11_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 12</p>
+          <img src="static/figures/case_2/layer_12_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 13</p>
+          <img src="static/figures/case_2/layer_13_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 14</p>
+          <img src="static/figures/case_2/layer_14_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 15</p>
+          <img src="static/figures/case_2/layer_15_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== case_3 ===================== -->
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-3">Case 3</h2>
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <!-- ===================== Input Row ===================== -->
+      <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 10px;">
+        Input
+      </h2>
+
+      <div class="image-slider"
+          style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto; 
+                  margin-bottom: 30px; text-align: center;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Origin Image</p>
+          <img src="static/figures/case_3/origin.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Bounding box</p>
+          <img src="static/figures/case_3/bbox.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+
+      <!-- ===================== Results Row ===================== -->
+    <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 4px;">
+      Results
+    </h2>
+    <p style="font-size: 12px; text-align: center; color: #666; margin-bottom: 12px;">
+      Drag left or right to browse the results (From bottom to top).
+    </p>
+
+      <div class="image-slider"
+           style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Background</p>
+          <img src="static/figures/case_3/background_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <!-- Foreground layers -->
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 0</p>
+          <img src="static/figures/case_3/layer_0_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 1</p>
+          <img src="static/figures/case_3/layer_1_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 2</p>
+          <img src="static/figures/case_3/layer_2_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 3</p>
+          <img src="static/figures/case_3/layer_3_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 4</p>
+          <img src="static/figures/case_3/layer_4_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 5</p>
+          <img src="static/figures/case_3/layer_5_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 6</p>
+          <img src="static/figures/case_3/layer_6_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 7</p>
+          <img src="static/figures/case_3/layer_7_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 8</p>
+          <img src="static/figures/case_3/layer_8_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== case_4 ===================== -->
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-3">Case 4</h2>
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <!-- ===================== Input Row ===================== -->
+      <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 10px;">
+        Input
+      </h2>
+
+      <div class="image-slider"
+          style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto; 
+                  margin-bottom: 30px; text-align: center;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Origin Image</p>
+          <img src="static/figures/case_4/origin.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Bounding box</p>
+          <img src="static/figures/case_4/bbox.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+
+      <!-- ===================== Results Row ===================== -->
+    <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 4px;">
+      Results
+    </h2>
+    <p style="font-size: 12px; text-align: center; color: #666; margin-bottom: 12px;">
+      Drag left or right to browse the results (From bottom to top).
+    </p>
+
+      <div class="image-slider"
+           style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Background</p>
+          <img src="static/figures/case_4/background_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <!-- Foreground layers -->
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 0</p>
+          <img src="static/figures/case_4/layer_0_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 1</p>
+          <img src="static/figures/case_4/layer_1_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 2</p>
+          <img src="static/figures/case_4/layer_2_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 3</p>
+          <img src="static/figures/case_4/layer_3_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 4</p>
+          <img src="static/figures/case_4/layer_4_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 5</p>
+          <img src="static/figures/case_4/layer_5_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 6</p>
+          <img src="static/figures/case_4/layer_6_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 7</p>
+          <img src="static/figures/case_4/layer_7_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 8</p>
+          <img src="static/figures/case_4/layer_8_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 9</p>
+          <img src="static/figures/case_4/layer_9_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 10</p>
+          <img src="static/figures/case_4/layer_10_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== case_5 ===================== -->
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-3">Case 5</h2>
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <!-- ===================== Input Row ===================== -->
+      <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 10px;">
+        Input
+      </h2>
+
+      <div class="image-slider"
+          style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto; 
+                  margin-bottom: 30px; text-align: center;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Origin Image</p>
+          <img src="static/figures/case_5/origin.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Bounding box</p>
+          <img src="static/figures/case_5/bbox.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+
+      <!-- ===================== Results Row ===================== -->
+    <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 4px;">
+      Results
+    </h2>
+    <p style="font-size: 12px; text-align: center; color: #666; margin-bottom: 12px;">
+      Drag left or right to browse the results (From bottom to top).
+    </p>
+
+      <div class="image-slider"
+           style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Background</p>
+          <img src="static/figures/case_5/background_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <!-- Foreground layers -->
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 0</p>
+          <img src="static/figures/case_5/layer_0_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 1</p>
+          <img src="static/figures/case_5/layer_1_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 2</p>
+          <img src="static/figures/case_5/layer_2_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 3</p>
+          <img src="static/figures/case_5/layer_3_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 4</p>
+          <img src="static/figures/case_5/layer_4_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 5</p>
+          <img src="static/figures/case_5/layer_5_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 6</p>
+          <img src="static/figures/case_5/layer_6_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 7</p>
+          <img src="static/figures/case_5/layer_7_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 8</p>
+          <img src="static/figures/case_5/layer_8_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 9</p>
+          <img src="static/figures/case_5/layer_9_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 10</p>
+          <img src="static/figures/case_5/layer_10_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== case_6 ===================== -->
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop has-text-centered">
+      <h2 class="title is-3">Case 6</h2>
+  </div>
+</section>
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <!-- ===================== Input Row ===================== -->
+      <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 10px;">
+        Input
+      </h2>
+
+      <div class="image-slider"
+          style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto; 
+                  margin-bottom: 30px; text-align: center;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Origin Image</p>
+          <img src="static/figures/case_6/origin.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Bounding box</p>
+          <img src="static/figures/case_6/bbox.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+
+      <!-- ===================== Results Row ===================== -->
+    <h2 style="font-size: 22px; font-weight: bold; text-align: center; margin-bottom: 4px;">
+      Results
+    </h2>
+    <p style="font-size: 12px; text-align: center; color: #666; margin-bottom: 12px;">
+      Drag left or right to browse the results (From bottom to top).
+    </p>
+
+      <div class="image-slider"
+           style="overflow-x: auto; white-space: nowrap; width: 80%; margin: auto;">
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Background</p>
+          <img src="static/figures/case_6/background_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <!-- Foreground layers -->
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 0</p>
+          <img src="static/figures/case_6/layer_0_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 1</p>
+          <img src="static/figures/case_6/layer_1_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 2</p>
+          <img src="static/figures/case_6/layer_2_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 3</p>
+          <img src="static/figures/case_6/layer_3_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 4</p>
+          <img src="static/figures/case_6/layer_4_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 5</p>
+          <img src="static/figures/case_6/layer_5_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 6</p>
+          <img src="static/figures/case_6/layer_6_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 7</p>
+          <img src="static/figures/case_6/layer_7_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+        <div style="display: inline-block; width: 30%; margin-right: 10px; text-align: center;">
+          <p style="margin-bottom: 5px;">Foreground 8</p>
+          <img src="static/figures/case_6/layer_8_rgba.png" style="width: 100%; height: auto;">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p>
+          This website is licensed under a <a rel="license"
+          href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+      <p>
+        Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+        href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+</footer>
+
+
+  <script type="text/javascript">
+    var sc_project=12351448; 
+    var sc_invisible=1; 
+    var sc_security="c676de4f"; 
+  </script>
+  <script type="text/javascript"
+  src="https://www.statcounter.com/counter/counter.js"
+  async></script>
+  <noscript><div class="statcounter"><a title="Web Analytics"
+    href="https://statcounter.com/" target="_blank"><img
+    class="statcounter"
+    src="https://c.statcounter.com/12351448/0/c676de4f/1/"
+    alt="Web Analytics"></a></div></noscript>
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
