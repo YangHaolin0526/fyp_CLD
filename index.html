@@ -105,27 +105,8 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Recent advances in text-to-image generation have signifi-
-            cantly accelerated progress in autonomous graphic design generation.
-            However, a gap remains between visually plausible generation and indus-
-            trial usability. A key missing capability is layer decomposition: practical
-            design workflows require separating an image into structured compo-
-            nents, typically foreground, background, and text layers. Unfortunately,
-            high-quality layer-annotated data are largely proprietary assets in the
-            industry, and publicly available datasets remain extremely limited. Mo-
-            tivated by this observation, we investigate whether scalable synthetic
-            data can serve as an effective substitute for private layered design re-
-            sources. We curate structured layer-level annotations and construct a
-            controllable data generation pipeline based on the open-source CLD
-            framework. Using this organized synthetic layer data, we train models
-            for layout and layer extraction. Surprisingly, models trained primarily on
-            synthetic layered data achieve strong performance and generalize well to
-            real-world graphic designs, suggesting that realistic layer supervision may
-            not require large-scale proprietary datasets. Our findings indicate that
-            properly structured synthetic data can be a viable path toward scalable
-            layer understanding. To facilitate future research, we commit to releasing
-            the dataset construction pipeline to the community, aiming to promote
-            progress toward practical, editable text-to-image systems.
+            Recent advances in text-to-image generation have improved visual quality in graphic design, but practical workflows require explicit layer decomposition, separating foreground, background, and text into editable components. However, high-quality layer-annotated datasets are largely proprietary, and publicly available resources remain scarce. Existing approaches, such as PrismLayer, attempt to synthesize data from realistic layouts, but their reliance on authentic layouts limits scalability. In this paper, we explore a scalable alternative: learning from layout-agnostic synthetic layered data. Rather than depending on carefully curated aesthetic compositions, we generate synthetic designs in which elements are programmatically distributed over backgrounds using simple rules, without enforcing professional layout constraints. We systematically curate diverse visual assets and develop a structured captioning strategy to produce layer-level annotations. 
+            Using this synthetic data, we train models for layout prediction and layer extraction based on the state-of-the-art layer decomposition framework CLD. Surprisingly, models trained primarily on layout-agnostic synthetic data achieve strong performance and generalize effectively to real-world graphic designs. These results suggest that high-quality layer supervision does not necessarily depend on large-scale proprietary datasets, opening up a scalable and accessible paradigm for layer-aware graphic design research. To facilitate further exploration in this direction, we will release our dataset construction pipeline and training code.
           </p>
         </div>
       </div>
@@ -139,7 +120,7 @@
     <div class="container">
 
       <div class="column is-centered has-text-centered">
-        <img src="static/figures/fyp_main.jpg" alt="cars peace" style="width: 80%; height: auto;"/>
+        <img src="static/figures/scaleup_demo.pdf" alt="cars peace" style="width: 80%; height: auto;"/>
       </div>
      
   </div>
@@ -148,6 +129,31 @@
 </section>
 
 <section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Qualitative Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            The figure below demonstrates the significant improvements achieved by our synthetic data scale-up strategy. Compared to the original model trained solely on limited proprietary layouts, our Scale-up model produces substantially sharper text rendering, cleaner layer boundaries, and highly accurate spatial layouts that closely align with the Ground Truth.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="column is-centered has-text-centered">
+        <img src="static/figures/scaleup.pdf" alt="Scale-up Comparison" style="width: 80%; height: auto;"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section hero is-light">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
@@ -163,7 +169,22 @@
     </div>
     <!--/ Abstract. -->
   </div>
-</section> 
+</section>  -->
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our approach focuses on overcoming the scarcity of proprietary layered data through a scalable, layout-agnostic synthetic generation pipeline. First, we programmatically distribute heterogeneous visual elements—including text, foreground objects, and aesthetic backgrounds—using a robust non-overlapping placement algorithm. Next, we employ a structured, spatial-aware captioning strategy that is refined by Large Language Models (LLMs) to generate high-quality, coherent text conditioning. Finally, this large-scale synthetic dataset is utilized to train the Controllable Layer Decomposition (CLD) framework, comprising the Layer Decompose-DiT (LD-DiT) and Multi-Layer Conditional Adapter (MLCA). By learning from massive, diverse synthetic layouts, our model achieves precise and controllable multi-layer extraction without relying on scarce authentic design data.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <section class="hero is-small">
